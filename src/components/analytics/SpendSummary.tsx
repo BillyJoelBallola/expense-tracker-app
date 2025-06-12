@@ -16,7 +16,7 @@ import {
 import { format } from "date-fns";
 
 type SpendSummaryProps = {
-  spendSummary: {
+  spendSummary?: {
     categoryId: string;
     label: string;
     type: string;
@@ -31,7 +31,7 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
   const [date, setDate] = useState(currentMonthYear);
 
   const filteredSummary = useMemo(() => {
-    return spendSummary.filter((item) => item.date.toString().includes(date));
+    return spendSummary?.filter((item) => item.date.toString().includes(date));
   }, [date]);
 
   return (
@@ -52,8 +52,8 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-96 rounded-md space-y-2">
-          {spendSummary.length !== 0 ? (
-            filteredSummary.map((spend) => (
+          {spendSummary?.length !== 0 ? (
+            filteredSummary?.map((spend) => (
               <div
                 key={spend.categoryId}
                 className="cursor-default flex items-center justify-between py-2 rounded-lg"
