@@ -58,6 +58,7 @@ export async function createCategory({
     const isExisting = await prisma.category.findFirst({
       where: {
         label,
+        userId: user.id,
       },
     });
 
