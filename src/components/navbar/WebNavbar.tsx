@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import ModeToggle from "@/components/ModeToggle";
-import TransactionDialog from "@/components/dialog/TransactionDialog";
 import TransactionSheet from "@/components/dialog/TransactionSheet";
 
 import { ChartLine, CircleUserRound, House, Wallet } from "lucide-react";
@@ -35,11 +34,6 @@ async function WebNavbar() {
           <CircleUserRound className="size-4" />
         </Link>
       </Button>
-
-      {/* <TransactionDialog
-        wallets={wallets ?? null}
-        categories={categories ?? null}
-      /> */}
 
       <TransactionSheet
         wallets={wallets ?? null}
