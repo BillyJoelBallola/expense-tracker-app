@@ -21,7 +21,7 @@ export async function createNewWallet({
 
     const isWalletExist = await prisma.wallet.findFirst({
       where: {
-        AND: [{ type }, { bankName: newBankName }],
+        AND: [{ userId: user.id }, { type }, { bankName: newBankName }],
       },
     });
 
