@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  firstName String
+  lastName  String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Wallet      Wallet[]
+  Category    Category[]
+  Transaction Transaction[]
+}
+
+model Wallet {
+  id       String     @id @default(cuid())
+  userId   String
+  type     WalletType
+  balance  Float      @default(0.0)
+  bankName String?
+
+  // relations
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions       Transaction[] @relation("PrimaryWallet")
+  sourceTransactions Transaction[] @relation("SourceWallet")
+}
+
+model Category {
+  id        String       @id @default(cuid())
+  userId    String
+  label     String
+  type      CategoryType
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // relations
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Transaction Transaction[]
+}
+
+model Transaction {
+  id             String   @id @default(cuid())
+  userId         String
+  walletId       String
+  sourceWalletId String?
+  categoryId     String
+  amount         Float
+  note           String?
+  date           DateTime @default(now())
+
+  // relations
+  wallet       Wallet   @relation("PrimaryWallet", fields: [walletId], references: [id], onDelete: Cascade)
+  sourceWallet Wallet?  @relation("SourceWallet", fields: [sourceWalletId], references: [id])
+  category     Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum WalletType {
+  CASH
+  BANK
+  EWALLET
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
