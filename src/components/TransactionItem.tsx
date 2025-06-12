@@ -34,7 +34,7 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
         <div className="cursor-default flex items-center justify-between p-2 bg-neutral-100 dark:bg-neutral-900/20 hover:bg-neutral-200 hover:dark:bg-neutral-900/50 duration-200 ease-in-out rounded-lg">
           <div className="flex items-center gap-2">
             <div className="p-2 rounded-lg shadow-sm text-neutral-800 dark:text-neutral-100 bg-neutral-300 dark:bg-neutral-800">
-              {categoryIcon(transac?.category.label)}
+              {categoryIcon(transac?.category.label!)}
             </div>
             <div className="grid">
               <span className="font-semibold">{transac?.category.label}</span>
@@ -154,7 +154,7 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
             <span className="font-semibold">Category</span>
             <div className="flex items-center bg-neutral-100 dark:bg-neutral-900/50 rounded-lg">
               <div className="p-2 rounded-lg text-neutral-800 dark:text-neutral-100">
-                {categoryIcon(transac?.category.label)}
+                {categoryIcon(transac?.category.label!)}
               </div>
               <span className="sm:text-lg font-semibold">
                 {transac?.category.label}
