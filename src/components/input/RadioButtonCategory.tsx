@@ -1,13 +1,15 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
+import { useState } from "react";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { CircleX, Ellipsis } from "lucide-react";
+
 import { categoryIcon } from "@/lib/categoryIcon";
 import { Category } from "@/generated/prisma";
-import { useState } from "react";
-import { CircleX, Ellipsis } from "lucide-react";
-import { Button } from "../ui/button";
-import { ScrollArea } from "../ui/scroll-area";
 
 type Props = {
   transactionData: {
@@ -40,12 +42,19 @@ function RadioButtonCategory({
           {sliceCategories
             ?.filter((c) => c.type !== "TRANSFER")
             .map((category) => (
-              <div
+              <Button
+                variant={
+                  transactionData.categoryId === category.id
+                    ? "default"
+                    : "outline"
+                }
                 key={category.id}
+                type="button"
                 className={`${
-                  transactionData.categoryId === category.id &&
-                  "bg-neutral-800 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900"
-                } flex items-center gap-1 border p-2 rounded-full`}
+                  category.type === "INCOME"
+                    ? "hover:text-green-500"
+                    : "hover:text-red-500"
+                } rounded-full`}
               >
                 <RadioGroupItem
                   value={category.id}
@@ -56,7 +65,7 @@ function RadioButtonCategory({
                   {categoryIcon(category.label, "size-4")}
                   <span>{category.label}</span>
                 </Label>
-              </div>
+              </Button>
             ))}
           <Button
             type="button"

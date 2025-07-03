@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+
 import {
   Dialog,
   DialogClose,
@@ -11,12 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { Loader, Trash2 } from "lucide-react";
 
 type DeleteDialogProps = {
   description: string;
   isDeleting: boolean;
   handleDelete: (id: string) => Promise<string | number | undefined>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
   id: string;
 };
 
@@ -24,10 +28,12 @@ function DeleteDialog({
   description,
   isDeleting,
   handleDelete,
+  setOpen,
+  open,
   id,
 }: DeleteDialogProps) {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon" onClick={() => {}}>
           <Trash2 />

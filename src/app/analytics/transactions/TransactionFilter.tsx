@@ -6,6 +6,7 @@ import { Category } from "@/generated/prisma";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import DateInputWithLabel from "@/components/input/DateInputWithLabel";
+import { Button } from "@/components/ui/button";
 
 type CategoryType = Category["type"] | "ALL";
 
@@ -56,22 +57,20 @@ function TransactionFilter({ filter, setFilter }: Props) {
           className="flex flex-wrap items-center gap-1"
         >
           {categoryTypes.map((category) => (
-            <div
+            <Button
+              variant={category.type === filter.type ? "default" : "outline"}
               key={category.label}
-              className={`${
-                category.type === filter.type &&
-                "bg-neutral-800 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-900"
-              } rounded-full px-4 py-2 border`}
+              className="rounded-full overflow-hidden px-0"
             >
               <RadioGroupItem
                 value={category.type}
                 id={category.type}
                 className="hidden"
               />
-              <Label htmlFor={category.type} className="text-sm">
+              <Label htmlFor={category.type} className="text-sm h-10 px-4">
                 {category.label}
               </Label>
-            </div>
+            </Button>
           ))}
         </RadioGroup>
       </div>

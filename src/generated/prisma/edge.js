@@ -173,7 +173,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\billy\\Desktop\\vscode\\trakr\\src\\generated\\prisma",
+      "value": "/home/billy/Desktop/vscode/expense-tracker-app/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -182,17 +182,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\billy\\Desktop\\vscode\\trakr\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/billy/Desktop/vscode/expense-tracker-app/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.9.0",
@@ -201,6 +200,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

@@ -45,24 +45,57 @@ export async function createNewWallet({
   }
 }
 
-export async function getTotalWalletBalance() {
+export async function getWalletCards() {
   try {
     const user = await currentUser();
-    if (!user) return 0;
 
-    const total = await prisma.wallet.aggregate({
-      where: {
-        userId: user.id,
-      },
-      _sum: {
-        balance: true,
-      },
+    if (!user) return;
+
+    const wallets = await prisma.wallet.groupBy({
+      by: ["bankName", "id", "balance"],
+      where: { userId: user.id },
     });
 
-    return total._sum.balance || 0;
+    const getTransactionInfoOfWallet = async (walletId: string) => {
+      const transactions = await prisma.transaction.findMany({
+        where: { walletId },
+        select: {
+          amount: true,
+          category: {
+            select: {
+              type: true,
+            },
+          },
+        },
+      });
+
+      const totals = transactions.reduce(
+        (acc, txn) => {
+          const type = txn.category?.type;
+          if (type === "EXPENSE") {
+            acc.expense += txn.amount;
+          } else if (type === "INCOME") {
+            acc.income += txn.amount;
+          }
+          return acc;
+        },
+        { income: 0, expense: 0 }
+      );
+
+      return totals;
+    };
+
+    const formattedWallets = await Promise.all(
+      wallets.map(async (wallet) => {
+        const totals = await getTransactionInfoOfWallet(wallet.id);
+        return { ...wallet, ...totals };
+      })
+    );
+
+    return formattedWallets;
   } catch (error) {
-    console.error("Failed to calculate total wallet balance", error);
-    return 0;
+    console.error("Failed to fetch wallet card data");
+    throw new Error("Failed to fetch wallet card data");
   }
 }
 

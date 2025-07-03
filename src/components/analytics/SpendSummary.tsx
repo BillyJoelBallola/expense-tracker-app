@@ -40,7 +40,7 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
         <div>
           <CardTitle>Spend Summary</CardTitle>
           <CardDescription className="text-xs sm:text-sm text-muted-foreground">
-            Summary - {format(new Date(date), "MMM, yyyy")}
+            {date}
           </CardDescription>
         </div>
         <Input

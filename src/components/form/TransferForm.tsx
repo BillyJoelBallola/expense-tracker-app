@@ -13,14 +13,16 @@ import { toast } from "sonner";
 
 type TransferFormProps = {
   wallets: Wallet[] | null;
-  setIsTransfer: (state: boolean) => void;
-  setIsAddingTransaction: (state: boolean) => void;
+  setIsTransfer: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddingTransaction: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function TransferForm({
   wallets,
   setIsTransfer,
   setIsAddingTransaction,
+  setOpen,
 }: TransferFormProps) {
   const router = useRouter();
   const [transferData, setTransferData] = useState({
@@ -68,6 +70,7 @@ function TransferForm({
       }
 
       if (response?.success) {
+        setOpen(false);
         setDefaultData();
         router.replace("/analytics/transactions");
         return toast.success("Transfer successfully");

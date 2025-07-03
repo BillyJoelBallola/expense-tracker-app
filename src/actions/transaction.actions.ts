@@ -98,45 +98,6 @@ export async function getRecentTransactions() {
   }
 }
 
-export async function getTotalTransactionAmounts() {
-  try {
-    const user = await currentUser();
-
-    if (!user) return;
-
-    const transactions = await prisma.transaction.findMany({
-      where: {
-        userId: user.id,
-      },
-      select: {
-        amount: true,
-        category: {
-          select: {
-            type: true,
-          },
-        },
-      },
-    });
-
-    const totals = transactions.reduce(
-      (acc, txn) => {
-        const type = txn.category?.type;
-        if (type === "EXPENSE") {
-          acc.expense += txn.amount;
-        } else if (type === "INCOME") {
-          acc.income += txn.amount;
-        }
-        return acc;
-      },
-      { income: 0, expense: 0 }
-    );
-
-    return totals;
-  } catch (error) {
-    console.error("Failed to get total transaction amounts");
-  }
-}
-
 export async function getTotalSpendSummary() {
   try {
     const user = await currentUser();

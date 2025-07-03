@@ -15,8 +15,9 @@ import RadioButtonCategory from "@/components/input/RadioButtonCategory";
 type TransactionFormProps = {
   wallets: Wallet[] | null;
   categories: Category[] | null;
-  setIsTransfer: (state: boolean) => void;
-  setIsAddingTransaction: (state: boolean) => void;
+  setIsTransfer: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAddingTransaction: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function TransactionForm({
@@ -24,6 +25,7 @@ function TransactionForm({
   categories,
   setIsTransfer,
   setIsAddingTransaction,
+  setOpen,
 }: TransactionFormProps) {
   const router = useRouter();
   const [transactionData, setTransactionData] = useState({
@@ -69,6 +71,7 @@ function TransactionForm({
       }
 
       if (response?.success) {
+        setOpen(false);
         setDefaultData();
         router.replace("/analytics/transactions");
         return toast.success("Transaction successfully added");

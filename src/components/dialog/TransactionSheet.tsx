@@ -24,11 +24,12 @@ type Props = {
 };
 
 function TransactionSheet({ wallets, categories }: Props) {
-  const [isTranfer, setIsTransfer] = useState(false);
   const [isAddingTransaction, setIsAddingTransaction] = useState(false);
+  const [isTranfer, setIsTransfer] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
@@ -41,7 +42,7 @@ function TransactionSheet({ wallets, categories }: Props) {
           </div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full sm:w-auto">
+      <SheetContent className="w-full sm:w-sm">
         <SheetHeader>
           <SheetTitle>Transaction</SheetTitle>
           <SheetDescription>Add new transaction</SheetDescription>
@@ -78,6 +79,7 @@ function TransactionSheet({ wallets, categories }: Props) {
               wallets={wallets}
               setIsTransfer={setIsTransfer}
               setIsAddingTransaction={setIsAddingTransaction}
+              setOpen={setOpen}
             />
           ) : (
             <TransactionForm
@@ -85,6 +87,7 @@ function TransactionSheet({ wallets, categories }: Props) {
               categories={categories}
               setIsTransfer={setIsTransfer}
               setIsAddingTransaction={setIsAddingTransaction}
+              setOpen={setOpen}
             />
           )}
         </div>

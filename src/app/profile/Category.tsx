@@ -12,7 +12,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -167,7 +166,11 @@ function Category() {
               ?.map((c) => (
                 <div
                   key={c.id}
-                  className="flex items-center gap-4 p-2 border rounded-full"
+                  className={`${
+                    c.type === "INCOME"
+                      ? "hover:text-green-500"
+                      : "hover:text-red-500"
+                  } flex items-center gap-4 p-2 border rounded-full`}
                 >
                   <div className="flex items-center gap-2 text-xs font-semibold">
                     {categoryIcon(c.label, "size-4")}
@@ -199,6 +202,7 @@ function Category() {
                           </Button>
                         </DialogClose>
                         <Button
+                          variant="destructive"
                           disabled={isPending.removing}
                           onClick={() => handleRemove(c.id)}
                         >

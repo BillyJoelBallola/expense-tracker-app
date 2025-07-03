@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+
 import {
   Dialog,
   DialogClose,
@@ -12,13 +13,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import React, { useState } from "react";
-import { Loader, Plus, PlusCircle } from "lucide-react";
-import { WalletType } from "@/generated/prisma";
-import InputWithLabel from "../input/InputWithLabel";
-import { createNewWallet } from "@/actions/wallet.action";
+import { Loader, PlusCircle } from "lucide-react";
 import { toast } from "sonner";
+
+import { WalletType } from "@/generated/prisma";
+import InputWithLabel from "@/components/input/InputWithLabel";
+
+import { createNewWallet } from "@/actions/wallet.action";
 
 const walletType = [
   {
@@ -37,6 +40,7 @@ const walletType = [
 
 function WalletDialog() {
   const [isAddingWallet, setIsAddingWallet] = useState(false);
+  const [open, setOpen] = useState(false);
   const [walletData, setWalletData] = useState<{
     type: WalletType;
     bankName: string;
@@ -65,6 +69,7 @@ function WalletDialog() {
       }
 
       if (response?.success) {
+        setOpen(false);
         setDefaultData();
         return toast.success("Wallet successfully created");
       }
@@ -76,7 +81,7 @@ function WalletDialog() {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"

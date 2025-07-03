@@ -17,6 +17,7 @@ function Icon({ type }: { type: Wallet["type"] }) {
 
 function WalletItem({ wallet }: { wallet: WalletItemProp }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDeleteWallet = async (walletId: string) => {
     setIsDeleting(true);
@@ -29,6 +30,7 @@ function WalletItem({ wallet }: { wallet: WalletItemProp }) {
       }
 
       if (response?.success) {
+        setOpen(false);
         return toast.success("Wallet deleted successfully");
       }
     } catch (error) {
@@ -50,6 +52,8 @@ function WalletItem({ wallet }: { wallet: WalletItemProp }) {
         description="Are you sure you want to delete this wallet?"
         isDeleting={isDeleting}
         handleDelete={handleDeleteWallet}
+        open={open}
+        setOpen={setOpen}
         id={wallet.id}
       />
     </div>
