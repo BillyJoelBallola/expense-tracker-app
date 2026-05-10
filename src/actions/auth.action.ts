@@ -53,6 +53,57 @@ export async function signIn({
   }
 }
 
+// Work in progress
+export async function signUp({
+  username,
+  firstName,
+  lastName,
+  password,
+  confirmPassword,
+}: {
+  username: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword: string;
+}) {
+  const salt = 10;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: { username: true, password: true, id: true },
+    });
+
+    if (user) {
+      return { error: "Username already exist" };
+    }
+
+    if (password !== confirmPassword) {
+      return { error: "Password did not match" };
+    }
+
+    const hashPassword = bcrypt.hashSync(confirmPassword, salt);
+
+    const newUser = await prisma.user.create({
+      data: {
+        username,
+        firstName,
+        lastName,
+        password: hashPassword,
+      },
+    });
+
+    return { success: true, user: newUser };
+  } catch (error) {
+    console.error("Error signing up:", error);
+    return {
+      success: false,
+      error: "An error occurred while signing up",
+    };
+  }
+}
+
 export async function signOut() {
   (await cookies()).delete(TOKEN_NAME);
 }

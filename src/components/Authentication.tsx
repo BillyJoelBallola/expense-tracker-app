@@ -3,8 +3,9 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import LoginDialog from "@/components/dialog/LoginDialog";
+import RegisterDialog from "@/components/dialog/RegisterDialog";
 
-function Login() {
+function Authentication() {
   const { theme } = useTheme();
   const [image, setImage] = useState("/white-logo.png");
 
@@ -15,7 +16,11 @@ function Login() {
   return (
     <div className="grid place-items-center">
       <div className="grid gap-4 place-items-center text-center">
-        <img src={image} alt="Wallet Icon" className="mt-10 size-48" />
+        <img
+          src={"/white-logo.png"}
+          alt="Wallet Icon"
+          className="mt-10 size-48"
+        />
         <div>
           <h1 className="text-6xl sm:text-7xl font-mono font-extrabold">
             trakr
@@ -23,9 +28,12 @@ function Login() {
           <p className="font-semibold">Expense tracker</p>
         </div>
       </div>
-      <LoginDialog />
+      <div className="flex items-center gap-2">
+        <LoginDialog />
+        <RegisterDialog />
+      </div>
     </div>
   );
 }
 
-export default Login;
+export default Authentication;

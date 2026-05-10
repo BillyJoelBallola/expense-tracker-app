@@ -38,7 +38,7 @@ function DateInputWithLabel({
             className={clsx(
               "pl-3 text-left font-normal w-full",
               !selected && "text-muted-foreground",
-              btnStyle
+              btnStyle,
             )}
           >
             {selected ? format(selected, "PPP") : <span>Pick a date</span>}

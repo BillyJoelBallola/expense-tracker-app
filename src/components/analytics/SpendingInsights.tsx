@@ -24,7 +24,7 @@ function SpendingInsights() {
     {
       expense: 0,
       income: 0,
-    }
+    },
   );
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function SpendingInsights() {
           }}
         />
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-2 sm:gap-4">
+      <CardContent className="grid sm:grid-cols-2 gap-2 sm:gap-4">
         <div className="flex items-center justify-between bg-neutral-100 dark:bg-neutral-800 p-2 rounded-lg">
           <div>
             <span className="text-xs text-muted-foreground">Income</span>

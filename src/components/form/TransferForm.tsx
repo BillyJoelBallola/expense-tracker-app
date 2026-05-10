@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MoveRight } from "lucide-react";
+import { MoveDown, MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Wallet } from "@/generated/prisma";
 
@@ -59,7 +59,7 @@ function TransferForm({
         transferData.amount === 0
       ) {
         return toast.error(
-          "Failed to transfer. Please fill up all important fields"
+          "Failed to transfer. Please fill up all important fields",
         );
       }
 
@@ -85,12 +85,12 @@ function TransferForm({
     <form id="tansferForm" onSubmit={handleOnSubmit} className="space-y-4 mb-8">
       <div className="grid gap-2">
         <span className="text-sm font-semibold">Wallets</span>
-        <div className="p-2 rounded-lg flex items-center gap-2 sm:gap-4 bg-neutral-100 dark:bg-neutral-900/50">
+        <div className="p-2 rounded-lg grid gap-2 bg-neutral-100 dark:bg-neutral-900/50">
           <SelectWithLabel
             label="From"
             type="wallet"
             items={wallets ?? null}
-            placeholder="Select wallet"
+            placeholder="Select Wallet"
             onValueChange={(value) =>
               setTransferData((prev) => ({
                 ...prev,
@@ -99,14 +99,11 @@ function TransferForm({
             }
             value={transferData.sourceWalletId}
           />
-          <div>
-            <MoveRight className="size-6" />
-          </div>
           <SelectWithLabel
             label="To"
             type="wallet"
             items={wallets ?? null}
-            placeholder="Select wallet"
+            placeholder="Select Wallet"
             onValueChange={(value) =>
               setTransferData((prev) => ({
                 ...prev,

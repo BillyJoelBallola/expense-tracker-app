@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import Account from "./Account";
 import Category from "./Category";
 import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 function ProfilePage() {
   const route = useRouter();
@@ -41,10 +42,11 @@ function ProfilePage() {
         </TabsList>
         <Button
           variant="outline"
-          className="rounded-full"
+          className="rounded-full text-sm"
           onClick={handleSignOut}
         >
-          Sign Out
+          <LogOut className="block md:hidden" />
+          <p className="hidden md:block">Sign out</p>
         </Button>
       </div>
       <TabsContent value="profile">

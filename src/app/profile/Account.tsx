@@ -68,6 +68,7 @@ function Account() {
             type="password"
             value={accountData.currentPassword}
             className="sm:w-sm"
+            showPassClassName="sm:w-sm"
             onChange={(value) => {
               setAccountData((prev) => ({
                 ...prev,
@@ -82,6 +83,7 @@ function Account() {
             type="password"
             value={accountData.newPassword}
             className="sm:w-sm"
+            showPassClassName="sm:w-sm"
             onChange={(value) => {
               setAccountData((prev) => ({
                 ...prev,
@@ -96,6 +98,7 @@ function Account() {
             type="password"
             value={accountData.confirmPassword}
             className="sm:w-sm"
+            showPassClassName="sm:w-sm"
             onChange={(value) => {
               setAccountData((prev) => ({
                 ...prev,

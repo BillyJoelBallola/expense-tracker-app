@@ -6,7 +6,7 @@ import { Category } from "@/generated/prisma";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import DateInputWithLabel from "@/components/input/DateInputWithLabel";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type CategoryType = Category["type"] | "ALL";
 
@@ -51,26 +51,31 @@ function TransactionFilter({ filter, setFilter }: Props) {
       <div className="order-2 sm:order-1">
         <RadioGroup
           defaultValue={filter.type}
-          onValueChange={(value: any) =>
+          onValueChange={(value) =>
             setFilter((prev) => ({ ...prev, type: value as CategoryType }))
           }
-          className="flex flex-wrap items-center gap-1"
+          className="flex flex-wrap gap-2"
         >
           {categoryTypes.map((category) => (
-            <Button
-              variant={category.type === filter.type ? "default" : "outline"}
-              key={category.label}
-              className="rounded-full overflow-hidden px-0"
-            >
+            <div key={category.type}>
               <RadioGroupItem
                 value={category.type}
                 id={category.type}
-                className="hidden"
+                className="sr-only"
               />
-              <Label htmlFor={category.type} className="text-sm h-10 px-4">
+
+              <Label
+                htmlFor={category.type}
+                className={cn(
+                  "rounded-full border px-4 py-2 cursor-pointer duration-200",
+                  filter.type === category.type
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-background",
+                )}
+              >
                 {category.label}
               </Label>
-            </Button>
+            </div>
           ))}
         </RadioGroup>
       </div>

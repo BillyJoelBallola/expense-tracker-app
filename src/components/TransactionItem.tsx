@@ -47,8 +47,8 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
             {transac?.category.type === "EXPENSE"
               ? "-"
               : transac?.category.type === "INCOME"
-              ? "+"
-              : null}{" "}
+                ? "+"
+                : null}{" "}
             ₱
             <span className="font-mono">
               {currencyFormat(transac?.amount!)}
@@ -78,8 +78,8 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
                   transac?.category.type === "EXPENSE"
                     ? "bg-red-700"
                     : transac?.category.type === "INCOME"
-                    ? "bg-green-700"
-                    : "bg-neutral-700"
+                      ? "bg-green-700"
+                      : "bg-neutral-700"
                 }`}
               >
                 <p className={`text-neutral-50 font-semibold text-xs`}>

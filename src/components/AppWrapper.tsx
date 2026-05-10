@@ -2,7 +2,7 @@ import { currentUser } from "@/actions/user.action";
 
 import MobileNavbar from "@/components/navbar/MobileNavbar";
 import AppHeader from "@/components/AppHeader";
-import Login from "@/components/Login";
+import Authentication from "@/components/Authentication";
 
 async function AppWrapper({
   children,
@@ -14,7 +14,7 @@ async function AppWrapper({
   if (!user) {
     return (
       <div className="w-screen h-screen grid gap-4 place-items-center text-center">
-        <Login />
+        <Authentication />
       </div>
     );
   }

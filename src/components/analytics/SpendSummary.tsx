@@ -31,8 +31,9 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
   const [date, setDate] = useState(currentMonthYear);
 
   const filteredSummary = useMemo(() => {
+    if (!date) return [];
     return spendSummary?.filter((item) => item.date.toString().includes(date));
-  }, [date]);
+  }, [date, spendSummary]);
 
   return (
     <Card>
@@ -51,11 +52,11 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
         />
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-96 rounded-md space-y-2">
-          {spendSummary?.length !== 0 ? (
+        <ScrollArea className="overflow-y-auto max-h-96 rounded-md space-y-2">
+          {filteredSummary && filteredSummary.length > 0 ? (
             filteredSummary?.map((spend) => (
               <div
-                key={spend.categoryId}
+                key={`${spend.categoryId}-${spend.date}`}
                 className="cursor-default flex items-center justify-between py-2 rounded-lg"
               >
                 <div className="flex items-center gap-2">
@@ -73,8 +74,8 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
                   {spend.type === "EXPENSE"
                     ? "-"
                     : spend.type === "INCOME"
-                    ? "+"
-                    : null}{" "}
+                      ? "+"
+                      : null}{" "}
                   ₱
                   <span className="font-mono">
                     {currencyFormat(spend.total)}
@@ -83,7 +84,7 @@ function SpendSummary({ spendSummary }: SpendSummaryProps) {
               </div>
             ))
           ) : (
-            <p>No data yet.</p>
+            <p className="text-sm">No data yet.</p>
           )}
         </ScrollArea>
       </CardContent>

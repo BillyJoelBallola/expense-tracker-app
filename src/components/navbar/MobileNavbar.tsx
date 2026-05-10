@@ -11,7 +11,7 @@ async function MobileNavbar() {
   const categories = await getCategories();
 
   return (
-    <nav className="z-10 fixed bottom-5 left-1/2 -translate-x-1/2 text-neutral-50 dark:text-neutral-800 bg-neutral-950 dark:bg-neutral-100 rounded-full p-2 flex sm:hidden items-center gap-2">
+    <nav className="z-10 fixed bottom-5 left-1/2 -translate-x-1/2 text-neutral-50 dark:text-neutral-800 bg-neutral-950 dark:bg-neutral-50 rounded-full p-2 flex sm:hidden items-center gap-2">
       <Button variant="ghost" size="icon" className="rounded-full" asChild>
         <Link href="/">
           <House className="size-6" />

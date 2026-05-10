@@ -17,7 +17,7 @@ function TransactionsPage() {
     date: "",
   });
   const [transactions, setTransactions] = useState<TransactionType | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function TransactionsPage() {
       const matchDate = filter.date
         ? new Date(tx.date).toDateString() ===
           new Date(filter.date).toDateString()
-        : true;
+        : false;
 
       const matchCategoryType =
         filter.type !== "ALL" ? tx.category.type === filter.type : true;
@@ -46,7 +46,6 @@ function TransactionsPage() {
 
   return (
     <div className="space-y-4">
-      {/* TODO: Graph and Filtering */}
       <div className="flex items-center">
         <TransactionFilter filter={filter} setFilter={setFilter} />
       </div>
@@ -60,7 +59,10 @@ function TransactionsPage() {
           ))
         ) : (
           <p className="text-center text-muted-foreground">
-            No transaction yet
+            {/* No transaction yet */}
+            {filter.date === ""
+              ? "Pick a transaction date you want to view."
+              : "No transaction yet."}
           </p>
         )}
       </div>

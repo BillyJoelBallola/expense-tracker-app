@@ -114,13 +114,13 @@ function WalletDialog() {
             }
             className="flex justify-center sm:justify-start gap-2 flex-wrap"
           >
-            {walletType.map((wallet) => (
+            {walletType.map(({ label, value }) => (
               <div
-                key={wallet.label}
+                key={label}
                 className="flex items-center gap-2 border p-2 rounded-full"
               >
-                <RadioGroupItem value={wallet.value} id={wallet.value} />
-                <Label htmlFor={wallet.value}>{wallet.label}</Label>
+                <RadioGroupItem value={value} id={value} />
+                <Label htmlFor={value}>{label}</Label>
               </div>
             ))}
           </RadioGroup>

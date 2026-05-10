@@ -1,11 +1,15 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 type InputWithLabelProps = {
   label: string;
   type?: "text" | "number" | "password";
   placeholder?: string;
   className?: string;
+  showPassClassName?: string;
   id: string;
   onChange: (value: string | number) => void;
   value: string | number;
@@ -17,29 +21,22 @@ const InputWithLabel = ({
   placeholder,
   onChange,
   className,
+  showPassClassName,
   id,
+  value,
   ...props
 }: InputWithLabelProps) => {
-  const handleShowPasssword = (isCheck: boolean) => {
-    const inputElement = document.getElementById(
-      "password"
-    ) as HTMLInputElement;
+  const [showPassword, setShowPassword] = useState(false);
 
-    if (!inputElement) return;
-
-    if (type === "password" && isCheck) {
-      inputElement.type = "text";
-    } else {
-      inputElement.type = "password";
-    }
-  };
+  const resolvedType =
+    type === "password" && showPassword ? "text" : (type ?? "text");
 
   return (
     <div className="space-y-2">
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
-        type={type ?? "text"}
+        type={resolvedType}
         className={className ?? ""}
         placeholder={placeholder ?? "Enter text"}
         onChange={(e) => {
@@ -54,12 +51,14 @@ const InputWithLabel = ({
         {...props}
         required
       />
-      {label === "Password" && (
-        <div className="flex items-center justify-end gap-1 text-muted-foreground">
+      {type === "password" && (
+        <div
+          className={`flex items-center justify-end gap-1 text-muted-foreground ${showPassClassName}`}
+        >
           <input
             type="checkbox"
             id="showPassword"
-            onChange={(e) => handleShowPasssword(e.target.checked)}
+            onChange={(e) => setShowPassword(e.target.checked)}
           />
           <label htmlFor="showPassword" className="text-xs">
             Show Password

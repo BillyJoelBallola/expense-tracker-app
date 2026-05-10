@@ -42,9 +42,9 @@ function RadioButtonCategory({
           {sliceCategories
             ?.filter((c) => c.type !== "TRANSFER")
             .map((category) => (
-              <button
+              <Label
                 key={category.id}
-                type="button"
+                htmlFor={category.id}
                 className={`${
                   category.type === "INCOME"
                     ? "hover:text-green-500"
@@ -53,18 +53,21 @@ function RadioButtonCategory({
                   transactionData.categoryId === category.id
                     ? "text-neutral-50 dark:text-neutral-950 bg-neutral-950 dark:bg-neutral-50"
                     : "border"
-                }  px-4 py-2 rounded-full`}
+                } px-4 py-2 rounded-full cursor-pointer`}
               >
+                <div
+                  className={`size-2 rounded-full ${
+                    category.type === "INCOME" ? "bg-green-500" : "bg-red-500"
+                  }`}
+                />
                 <RadioGroupItem
                   value={category.id}
                   id={category.id}
                   className="hidden"
                 />
-                <Label htmlFor={category.id}>
-                  {categoryIcon(category.label, "size-4")}
-                  <span>{category.label}</span>
-                </Label>
-              </button>
+                {categoryIcon(category.label, "size-4")}
+                <span>{category.label}</span>
+              </Label>
             ))}
           <Button
             type="button"
