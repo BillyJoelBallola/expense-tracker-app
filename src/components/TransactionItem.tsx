@@ -76,13 +76,13 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
               <div
                 className={`rounded-full px-2 py-1 max-w-fit ${
                   transac?.category.type === "EXPENSE"
-                    ? "bg-red-700"
+                    ? "bg-red-500/30 text-red-300"
                     : transac?.category.type === "INCOME"
-                      ? "bg-green-700"
-                      : "bg-neutral-700"
+                      ? "bg-green-500/30 text-green-300"
+                      : "bg-neutral-500/30 text-neutral-300"
                 }`}
               >
-                <p className={`text-neutral-50 font-semibold text-xs`}>
+                <p className="font-semibold text-xs">
                   {`${transac?.category.type[0]}${transac?.category.type
                     .slice(1, transac.category.type.length)
                     .toLowerCase()}`}

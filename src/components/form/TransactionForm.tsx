@@ -60,7 +60,7 @@ function TransactionForm({
         transactionData.amount === 0
       ) {
         return toast.error(
-          "Failed to add transaction. Please fill up all important fields"
+          "Failed to add transaction. Please fill up all important fields",
         );
       }
 

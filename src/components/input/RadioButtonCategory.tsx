@@ -32,7 +32,7 @@ function RadioButtonCategory({
     <div className="space-y-2">
       <Label>Category</Label>
       <ScrollArea
-        className={`${sliceCategories.length <= 4 ? "h-auto" : "h-28"}`}
+        className={`${sliceCategories.length <= 4 ? "h-auto" : "h-32"}`}
       >
         <RadioGroup
           defaultValue={transactionData.categoryId}
