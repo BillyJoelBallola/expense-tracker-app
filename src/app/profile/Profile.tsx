@@ -17,7 +17,12 @@ import { toast } from "sonner";
 
 function Profile() {
   const [isSaving, setIsSaving] = useState(false);
-  const [profileData, setProfileData] = useState({
+  const [profileInfo, setProfileInfo] = useState({
+    username: "Jonny",
+    firstName: "John",
+    lastName: "Doe",
+  });
+  const [profileForm, setProfileForm] = useState({
     username: "",
     firstName: "",
     lastName: "",
@@ -27,15 +32,19 @@ function Profile() {
     const fetchUser = async () => {
       const response = await currentUser();
       if (!response) return;
-      setProfileData({
+
+      const data = {
         username: response.username,
         firstName: response.firstName,
         lastName: response.lastName,
-      });
+      };
+
+      setProfileInfo(data);
+      setProfileForm(data);
     };
 
     fetchUser();
-  }, [isSaving]);
+  }, []);
 
   const handleForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +52,7 @@ function Profile() {
     setIsSaving(true);
 
     try {
-      const response = await updateProfile(profileData);
+      const response = await updateProfile(profileForm);
 
       if (response?.error) {
         return toast.error(response.error);
@@ -66,15 +75,27 @@ function Profile() {
         <CardDescription>Update you profile information here.</CardDescription>
       </CardHeader>
       <CardContent>
+        <div className="grid p-2 mb-4 bg-neutral-100 dark:bg-neutral-700 rounded-lg">
+          <div className="grid grid-cols-3 text-neutral-400">
+            <h2 className="text-xs">Username</h2>
+            <h2 className="text-xs">Firstname</h2>
+            <h2 className="text-xs">Lastname</h2>
+          </div>
+          <div className="grid grid-cols-3">
+            <p>{profileInfo.username}</p>
+            <p>{profileInfo.firstName}</p>
+            <p>{profileInfo.lastName}</p>
+          </div>
+        </div>
         <form id="profileForm" onSubmit={handleForm} className="space-y-4">
           <InputWithLabel
-            label="Username"
+            label={`Username`}
             placeholder="Username"
             id="username"
-            value={profileData.username}
-            className="sm:w-sm"
+            value={profileForm.username}
+            containerClassName="sm:w-sm"
             onChange={(value) => {
-              setProfileData((prev) => ({
+              setProfileForm((prev) => ({
                 ...prev,
                 username: value as string,
               }));
@@ -84,10 +105,10 @@ function Profile() {
             label="First Name"
             placeholder="First Name"
             id="firstName"
-            value={profileData.firstName}
-            className="sm:w-sm"
+            value={profileForm.firstName}
+            containerClassName="sm:w-sm"
             onChange={(value) => {
-              setProfileData((prev) => ({
+              setProfileForm((prev) => ({
                 ...prev,
                 firstName: value as string,
               }));
@@ -97,10 +118,10 @@ function Profile() {
             label="Last Name"
             placeholder="Last Name"
             id="lastName"
-            value={profileData.lastName}
-            className="sm:w-sm"
+            value={profileForm.lastName}
+            containerClassName="sm:w-sm"
             onChange={(value) => {
-              setProfileData((prev) => ({
+              setProfileForm((prev) => ({
                 ...prev,
                 lastName: value as string,
               }));
@@ -114,9 +135,9 @@ function Profile() {
           type="submit"
           disabled={
             isSaving ||
-            profileData.username === "" ||
-            profileData.firstName === "" ||
-            profileData.lastName === ""
+            profileForm.username === "" ||
+            profileForm.firstName === "" ||
+            profileForm.lastName === ""
           }
         >
           {isSaving && <Loader className="size-4 animate-spin" />} Save Changes

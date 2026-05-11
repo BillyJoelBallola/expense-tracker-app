@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 
 type InputWithLabelProps = {
@@ -10,6 +11,7 @@ type InputWithLabelProps = {
   placeholder?: string;
   className?: string;
   showPassClassName?: string;
+  containerClassName?: string;
   id: string;
   onChange: (value: string | number) => void;
   value: string | number;
@@ -22,6 +24,7 @@ const InputWithLabel = ({
   onChange,
   className,
   showPassClassName,
+  containerClassName,
   id,
   value,
   ...props
@@ -32,7 +35,7 @@ const InputWithLabel = ({
     type === "password" && showPassword ? "text" : (type ?? "text");
 
   return (
-    <div className="space-y-2">
+    <div className={`space-y-2 relative ${containerClassName}`}>
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
@@ -53,15 +56,23 @@ const InputWithLabel = ({
       />
       {type === "password" && (
         <div
-          className={`flex items-center justify-end gap-1 text-muted-foreground ${showPassClassName}`}
+          className={`absolute right-3 top-8 flex items-center justify-end gap-1 text-muted-foreground ${showPassClassName}`}
         >
           <input
+            hidden
             type="checkbox"
-            id="showPassword"
+            id={`showPassword-${id}`}
             onChange={(e) => setShowPassword(e.target.checked)}
           />
-          <label htmlFor="showPassword" className="text-xs">
-            Show Password
+          <label
+            htmlFor={`showPassword-${id}`}
+            className="cursor-pointer text-neutral-400 dark:text-neutral-600"
+          >
+            {showPassword ? (
+              <Eye className="size-4" />
+            ) : (
+              <EyeClosed className="size-4" />
+            )}
           </label>
         </div>
       )}

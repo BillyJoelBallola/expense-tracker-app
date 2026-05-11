@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
 
+import { Turnstile } from "@marsidev/react-turnstile";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,7 +19,8 @@ import InputWithLabel from "@/components/input/InputWithLabel";
 import { signUp } from "@/actions/auth.action";
 import { Loader } from "lucide-react";
 
-function LoginDialog() {
+function SignupDialog() {
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [signupData, setSignupData] = useState({
     username: "",
@@ -29,6 +31,7 @@ function LoginDialog() {
   });
 
   const isDisabled =
+    !turnstileToken ||
     signupData.username === "" ||
     signupData.firstName === "" ||
     signupData.lastName === "" ||
@@ -51,7 +54,12 @@ function LoginDialog() {
     setIsSigningUp(true);
 
     try {
-      const response = await signUp(signupData);
+      if (!turnstileToken) return toast.error("Please complete the captcha.");
+
+      const response = await signUp({
+        ...signupData,
+        turnstileToken,
+      });
 
       if (response.error) {
         return toast.error(response.error);
@@ -70,7 +78,7 @@ function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mt-8 rounded-full w-fit px-8 bg-transparent border border-neutral-50 text-neutral-50 hover:bg-neutral-100/10 duration-200">
+        <Button className="mt-8 rounded-full w-fit px-8 bg-transparent border border-neutral-900 text-neutral-900 hover:bg-neutral-900/10 dark:border-neutral-50 dark:text-neutral-50 dark:hover:bg-neutral-100/10 duration-200">
           Sign up
         </Button>
       </DialogTrigger>
@@ -91,7 +99,7 @@ function LoginDialog() {
             label="Username"
             type="text"
             placeholder="Enter username"
-            className="w-full"
+            containerClassName="w-full"
             id="username"
             onChange={(value) =>
               setSignupData({
@@ -105,7 +113,7 @@ function LoginDialog() {
             label="First Name"
             type="text"
             placeholder="Enter firstname"
-            className="w-full"
+            containerClassName="w-full"
             id="firstName"
             onChange={(value) =>
               setSignupData({
@@ -119,7 +127,7 @@ function LoginDialog() {
             label="Last Name"
             type="text"
             placeholder="Enter lastname"
-            className="w-full"
+            containerClassName="w-full"
             id="lastName"
             onChange={(value) =>
               setSignupData({
@@ -133,7 +141,7 @@ function LoginDialog() {
             label="Password"
             type="password"
             placeholder="Enter password"
-            className="w-full"
+            containerClassName="w-full"
             id="password"
             onChange={(value) =>
               setSignupData({
@@ -147,7 +155,7 @@ function LoginDialog() {
             label="Confirm Password"
             type="password"
             placeholder="Confirm password"
-            className="w-full"
+            containerClassName="w-full"
             id="confirmPassword"
             onChange={(value) =>
               setSignupData({
@@ -156,6 +164,11 @@ function LoginDialog() {
               })
             }
             value={signupData.confirmPassword}
+          />
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={(token) => setTurnstileToken(token)}
+            onExpire={() => setTurnstileToken(null)}
           />
         </form>
         <DialogFooter>
@@ -177,4 +190,4 @@ function LoginDialog() {
   );
 }
 
-export default LoginDialog;
+export default SignupDialog;

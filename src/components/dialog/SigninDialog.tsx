@@ -15,11 +15,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import InputWithLabel from "@/components/input/InputWithLabel";
-import { sign } from "crypto";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { signIn } from "@/actions/auth.action";
 import { Loader } from "lucide-react";
 
-function LoginDialog() {
+function SigninDialog() {
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signinData, setSigninData] = useState({
     username: "",
@@ -39,7 +40,12 @@ function LoginDialog() {
     setIsSigningIn(true);
 
     try {
-      const response = await signIn(signinData);
+      if (!turnstileToken) return toast.error("Please complete the captcha.");
+
+      const response = await signIn({
+        ...signinData,
+        turnstileToken,
+      });
 
       if (response.error) {
         return toast.error(response.error);
@@ -76,7 +82,7 @@ function LoginDialog() {
             label="Username"
             type="text"
             placeholder="Enter your username"
-            className="w-full"
+            containerClassName="w-full"
             id="username"
             onChange={(value) =>
               setSigninData({
@@ -90,7 +96,7 @@ function LoginDialog() {
             label="Password"
             type="password"
             placeholder="Enter your password"
-            className="w-full"
+            containerClassName="w-full"
             id="password"
             onChange={(value) =>
               setSigninData({
@@ -99,6 +105,11 @@ function LoginDialog() {
               })
             }
             value={signinData.password}
+          />
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={(token) => setTurnstileToken(token)}
+            onExpire={() => setTurnstileToken(null)}
           />
         </form>
         <DialogFooter>
@@ -123,4 +134,4 @@ function LoginDialog() {
   );
 }
 
-export default LoginDialog;
+export default SigninDialog;

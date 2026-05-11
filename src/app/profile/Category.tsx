@@ -133,7 +133,7 @@ function Category() {
             label="Label"
             placeholder="e.g. Bills"
             id="label"
-            className="sm:w-sm"
+            containerClassName="sm:w-sm"
             value={categoryData.label}
             onChange={(value) => {
               setCategoryData((prev) => ({

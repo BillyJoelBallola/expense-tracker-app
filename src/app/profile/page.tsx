@@ -1,29 +1,13 @@
 "use client";
 
-import { signOut } from "@/actions/auth.action";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import Profile from "./Profile";
 import Account from "./Account";
 import Category from "./Category";
-import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import SignoutDialog from "@/components/dialog/SignoutDialog";
 
 function ProfilePage() {
-  const route = useRouter();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      route.replace("/");
-    } catch (error) {
-      toast.error("Error occured while signing out");
-    }
-  };
-
   const tabs = [
     { label: "Profile", value: "profile" },
     { label: "Account", value: "account" },
@@ -40,14 +24,7 @@ function ProfilePage() {
             </TabsTrigger>
           ))}
         </TabsList>
-        <Button
-          variant="outline"
-          className="rounded-full text-sm"
-          onClick={handleSignOut}
-        >
-          <LogOut className="block md:hidden" />
-          <p className="hidden md:block">Sign out</p>
-        </Button>
+        <SignoutDialog />
       </div>
       <TabsContent value="profile">
         <Profile />

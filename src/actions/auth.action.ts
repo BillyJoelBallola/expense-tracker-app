@@ -1,7 +1,9 @@
 "use server";
 
 import { getJwtSecretKey, TOKEN_NAME } from "@/lib/auth";
+import { verifyTurnstile } from "@/lib/turnstile";
 import prisma from "@/lib/prisma";
+
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
@@ -9,10 +11,15 @@ import { cookies } from "next/headers";
 export async function signIn({
   username,
   password,
+  turnstileToken,
 }: {
   username: string;
   password: string;
+  turnstileToken: string;
 }) {
+  const isHuman = await verifyTurnstile(turnstileToken);
+  if (!isHuman) return { error: "Captcha verification failed." };
+
   try {
     const user = await prisma.user.findUnique({
       where: { username },
@@ -53,20 +60,24 @@ export async function signIn({
   }
 }
 
-// Work in progress
 export async function signUp({
   username,
   firstName,
   lastName,
   password,
   confirmPassword,
+  turnstileToken,
 }: {
   username: string;
   firstName: string;
   lastName: string;
   password: string;
   confirmPassword: string;
+  turnstileToken: string;
 }) {
+  const isHuman = await verifyTurnstile(turnstileToken);
+  if (!isHuman) return { error: "Captcha verification failed." };
+
   const salt = 10;
 
   try {

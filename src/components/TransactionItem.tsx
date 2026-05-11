@@ -76,10 +76,10 @@ const TransactionItem = ({ transac }: { transac?: TransactionItemProp }) => {
               <div
                 className={`rounded-full px-2 py-1 max-w-fit ${
                   transac?.category.type === "EXPENSE"
-                    ? "bg-red-500/30 text-red-300"
+                    ? "bg-red-500/30 dark:text-red-300 text-red-900"
                     : transac?.category.type === "INCOME"
-                      ? "bg-green-500/30 text-green-300"
-                      : "bg-neutral-500/30 text-neutral-300"
+                      ? "bg-green-500/30 dark:text-green-300 text-green-900"
+                      : "bg-neutral-500/30 dark:text-neutral-300 text-neutral-900"
                 }`}
               >
                 <p className="font-semibold text-xs">
