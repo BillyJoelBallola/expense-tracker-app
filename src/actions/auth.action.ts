@@ -17,10 +17,10 @@ export async function signIn({
   password: string;
   turnstileToken: string;
 }) {
-  const isHuman = await verifyTurnstile(turnstileToken);
-  if (!isHuman) return { error: "Captcha verification failed." };
-
   try {
+    const isHuman = await verifyTurnstile(turnstileToken);
+    if (!isHuman) return { error: "Captcha verification failed." };
+
     const user = await prisma.user.findUnique({
       where: { username },
       select: { username: true, password: true, id: true },
@@ -75,12 +75,12 @@ export async function signUp({
   confirmPassword: string;
   turnstileToken: string;
 }) {
-  const isHuman = await verifyTurnstile(turnstileToken);
-  if (!isHuman) return { error: "Captcha verification failed." };
-
   const salt = 10;
 
   try {
+    const isHuman = await verifyTurnstile(turnstileToken);
+    if (!isHuman) return { error: "Captcha verification failed." };
+
     const user = await prisma.user.findUnique({
       where: { username },
       select: { username: true, password: true, id: true },
