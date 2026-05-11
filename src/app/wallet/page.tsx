@@ -2,6 +2,8 @@ import { getWallets } from "@/actions/wallet.action";
 import WalletDialog from "@/components/dialog/WalletDialog";
 import WalletItem from "@/components/WalletItem";
 
+export const dynamic = "force-dynamic";
+
 async function WalletPage() {
   const wallets = await getWallets();
 

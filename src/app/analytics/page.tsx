@@ -5,6 +5,8 @@ import SpendingInsights from "@/components/analytics/SpendingInsights";
 import SpendSummary from "@/components/analytics/SpendSummary";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 async function AnalyticsPage() {
   const spendSummary = await getTotalSpendSummary();
 

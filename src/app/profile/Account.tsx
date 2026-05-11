@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
 import { updateAccount } from "@/actions/user.action";
 import { toast } from "sonner";
-import { set } from "date-fns";
 import {
   Card,
   CardContent,

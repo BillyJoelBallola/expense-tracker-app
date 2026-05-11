@@ -4,26 +4,13 @@ import MobileNavbar from "@/components/navbar/MobileNavbar";
 import AppHeader from "@/components/AppHeader";
 import Authentication from "@/components/Authentication";
 
-// import { cookies } from "next/headers";
-
 export const dynamic = "force-dynamic";
-
-// async function getCookieData() {
-//   const cookieStore = await cookies();
-//   const cookieData = cookieStore.getAll();
-//   return new Promise((resolve) =>
-//     setTimeout(() => {
-//       resolve(cookieData);
-//     }, 1000),
-//   );
-// }
 
 async function AppWrapper({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const cookieData = await getCookieData();
   const user = await currentUser();
 
   if (!user) {

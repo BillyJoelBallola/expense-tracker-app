@@ -7,6 +7,8 @@ import Account from "./Account";
 import Category from "./Category";
 import SignoutDialog from "@/components/dialog/SignoutDialog";
 
+export const dynamic = "force-dynamic";
+
 function ProfilePage() {
   const tabs = [
     { label: "Profile", value: "profile" },

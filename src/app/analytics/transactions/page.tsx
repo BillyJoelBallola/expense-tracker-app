@@ -6,6 +6,8 @@ import { Category } from "@/generated/prisma";
 import { useEffect, useMemo, useState } from "react";
 import TransactionFilter from "./TransactionFilter";
 
+export const dynamic = "force-dynamic";
+
 type TransactionType = Awaited<ReturnType<typeof getTransactions>>;
 
 function TransactionsPage() {
