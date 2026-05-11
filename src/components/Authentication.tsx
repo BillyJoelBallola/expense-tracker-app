@@ -32,7 +32,12 @@ function Authentication() {
           <h1 className="text-6xl sm:text-7xl font-mono font-extrabold">
             trakr
           </h1>
-          <p className="font-semibold">Expense tracker</p>
+          <p className="font-semibold">
+            Expense tracker <br />
+            <small className="font-normal text-neutral-500">
+              by Billy Joel
+            </small>
+          </p>
         </div>
       </div>
       <div className="flex items-center gap-2">
