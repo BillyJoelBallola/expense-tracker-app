@@ -31,7 +31,7 @@ function SignupDialog() {
   });
 
   const isDisabled =
-    // !turnstileToken ||
+    !turnstileToken ||
     signupData.username === "" ||
     signupData.firstName === "" ||
     signupData.lastName === "" ||
@@ -54,11 +54,11 @@ function SignupDialog() {
     setIsSigningUp(true);
 
     try {
-      // if (!turnstileToken) return toast.error("Please complete the captcha.");
+      if (!turnstileToken) return toast.error("Please complete the captcha.");
 
       const response = await signUp({
         ...signupData,
-        // turnstileToken,
+        turnstileToken,
       });
 
       if (response.error) {
@@ -165,11 +165,11 @@ function SignupDialog() {
             }
             value={signupData.confirmPassword}
           />
-          {/* <Turnstile
+          <Turnstile
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
             onSuccess={(token) => setTurnstileToken(token)}
             onExpire={() => setTurnstileToken(null)}
-          /> */}
+          />
         </form>
         <DialogFooter>
           <DialogClose asChild>
