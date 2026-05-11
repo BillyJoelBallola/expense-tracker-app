@@ -27,8 +27,6 @@ export const metadata: Metadata = {
   applicationName: "Trakr",
 };
 
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({
   children,
 }: Readonly<{

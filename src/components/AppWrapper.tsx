@@ -4,6 +4,8 @@ import MobileNavbar from "@/components/navbar/MobileNavbar";
 import AppHeader from "@/components/AppHeader";
 import Authentication from "@/components/Authentication";
 
+export const dynamic = "force-dynamic";
+
 async function AppWrapper({
   children,
 }: Readonly<{
