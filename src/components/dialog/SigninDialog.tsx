@@ -44,7 +44,7 @@ function SigninDialog() {
 
       const response = await signIn({
         ...signinData,
-        turnstileToken,
+        // turnstileToken,
       });
 
       if (response.error) {
@@ -106,11 +106,11 @@ function SigninDialog() {
             }
             value={signinData.password}
           />
-          <Turnstile
+          {/* <Turnstile
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
             onSuccess={(token) => setTurnstileToken(token)}
             onExpire={() => setTurnstileToken(null)}
-          />
+          /> */}
         </form>
         <DialogFooter>
           <DialogClose asChild>

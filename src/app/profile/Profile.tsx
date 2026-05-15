@@ -76,15 +76,19 @@ function Profile() {
       </CardHeader>
       <CardContent>
         <div className="grid p-2 mb-4 bg-neutral-100 dark:bg-neutral-700 rounded-lg">
-          <div className="grid grid-cols-3 text-neutral-400">
-            <h2 className="text-xs">Username</h2>
-            <h2 className="text-xs">Firstname</h2>
-            <h2 className="text-xs">Lastname</h2>
-          </div>
-          <div className="grid grid-cols-3">
-            <p>{profileInfo.username}</p>
-            <p>{profileInfo.firstName}</p>
-            <p>{profileInfo.lastName}</p>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <div>
+              <h2 className="text-xs text-neutral-400">Username</h2>
+              <p>{profileInfo.username}</p>
+            </div>
+            <div>
+              <h2 className="text-xs text-neutral-400">Firstname</h2>
+              <p>{profileInfo.firstName}</p>
+            </div>
+            <div>
+              <h2 className="text-xs text-neutral-400">Lastname</h2>
+              <p>{profileInfo.lastName}</p>
+            </div>
           </div>
         </div>
         <form id="profileForm" onSubmit={handleForm} className="space-y-4">
