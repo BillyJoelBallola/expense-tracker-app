@@ -20,7 +20,7 @@ import { signIn } from "@/actions/auth.action";
 import { Loader } from "lucide-react";
 
 function SigninDialog() {
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  // const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [signinData, setSigninData] = useState({
     username: "",
@@ -40,7 +40,7 @@ function SigninDialog() {
     setIsSigningIn(true);
 
     try {
-      if (!turnstileToken) return toast.error("Please complete the captcha.");
+      // if (!turnstileToken) return toast.error("Please complete the captcha.");
 
       const response = await signIn({
         ...signinData,
