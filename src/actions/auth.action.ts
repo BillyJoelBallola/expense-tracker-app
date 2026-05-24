@@ -11,15 +11,15 @@ import { cookies } from "next/headers";
 export async function signIn({
   username,
   password,
-  // turnstileToken,
+  turnstileToken,
 }: {
   username: string;
   password: string;
-  // turnstileToken: string;
+  turnstileToken: string;
 }) {
   try {
-    // const isHuman = await verifyTurnstile(turnstileToken);
-    // if (!isHuman) return { error: "Captcha verification failed." };
+    const isHuman = await verifyTurnstile(turnstileToken);
+    if (!isHuman) return { error: "Captcha verification failed." };
 
     const user = await prisma.user.findUnique({
       where: { username },
@@ -66,20 +66,20 @@ export async function signUp({
   lastName,
   password,
   confirmPassword,
-  // turnstileToken,
+  turnstileToken,
 }: {
   username: string;
   firstName: string;
   lastName: string;
   password: string;
   confirmPassword: string;
-  // turnstileToken: string;
+  turnstileToken: string;
 }) {
   const salt = 10;
 
   try {
-    // const isHuman = await verifyTurnstile(turnstileToken);
-    // if (!isHuman) return { error: "Captcha verification failed." };
+    const isHuman = await verifyTurnstile(turnstileToken);
+    if (!isHuman) return { error: "Captcha verification failed." };
 
     const user = await prisma.user.findUnique({
       where: { username },
