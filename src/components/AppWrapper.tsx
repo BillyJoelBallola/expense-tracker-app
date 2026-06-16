@@ -3,6 +3,7 @@ import { currentUser } from "@/actions/user.action";
 import MobileNavbar from "@/components/navbar/MobileNavbar";
 import AppHeader from "@/components/AppHeader";
 import Authentication from "@/components/Authentication";
+import LandingPage from "./LandingPage";
 
 export const dynamic = "force-dynamic";
 
@@ -14,11 +15,7 @@ async function AppWrapper({
   const user = await currentUser();
 
   if (!user) {
-    return (
-      <div className="w-screen h-screen grid gap-4 place-items-center text-center">
-        <Authentication />
-      </div>
-    );
+    return <LandingPage />;
   }
 
   return (
