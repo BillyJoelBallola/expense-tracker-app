@@ -64,7 +64,9 @@ function SigninDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-full w-fit">Sign in</Button>
+        <Button size="sm" className="rounded-full w-fit">
+          Sign in
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

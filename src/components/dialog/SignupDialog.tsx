@@ -78,7 +78,10 @@ function SignupDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-full w-fit bg-transparent border border-neutral-900 text-neutral-900 hover:bg-neutral-900/10 dark:border-neutral-50 dark:text-neutral-50 dark:hover:bg-neutral-100/10 duration-200">
+        <Button
+          size="sm"
+          className="rounded-full w-fit bg-transparent border border-neutral-900 text-neutral-900 hover:bg-neutral-900/10 dark:border-neutral-50 dark:text-neutral-50 dark:hover:bg-neutral-100/10 duration-200"
+        >
           Sign up
         </Button>
       </DialogTrigger>
